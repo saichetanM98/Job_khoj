@@ -4,8 +4,8 @@ import { createInsforgeServer } from "@/lib/insforge-server";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata = {
-  title: "Dashboard | JobPilot",
-  description: "Your JobPilot dashboard.",
+  title: "Dashboard | JobKhoj",
+  description: "Your JobKhoj dashboard.",
 };
 
 export default async function DashboardPage() {

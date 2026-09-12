@@ -1,41 +1,39 @@
-# Memory — InsForge Integration, Schema Provisioning, and Navigation Fixes
+# Memory — Feature 11: Filter + Sort + Pagination
 
-Last updated: August 30, 2026, 2:33 PM
+Last updated: September 10, 2026, 21:55
 
 ## What was built
 
-- Created reusable `components/Navbar.tsx` featuring navigation links (`Dashboard`, `Find Jobs`, `Profile`), user authentication status display, and a `Sign Out` button wired to server-side auth actions.
-- Integrated `Navbar` across all internal pages (`app/dashboard/page.tsx`, `app/profile/page.tsx`, and `app/find-jobs/page.tsx`).
-- Connected and linked the project to the live InsForge backend project (`JSM_JOBPILOT` / `f9b89879-c086-4d97-ad0c-8f0a3826f0a3`).
-- Verified and established database schema for Phase 1 Feature 04:
-  - Tables: `profiles`, `agent_runs`, `jobs`, `agent_logs`.
-  - Database triggers: `on_auth_user_created` (auto-syncs `auth.users` into `public.profiles`) and `set_profiles_updated_at`.
-  - Row Level Security (RLS) policies on all tables enforcing `auth.uid() = user_id`.
-  - Private storage bucket `resumes` for candidate resume PDFs.
-- Created and initialized `context/context/progress-tracker.md` tracking all 17 features across all 5 phases.
+- `types/find-jobs.ts`: Updated `MatchFilterOption` (`"all"`, `"high"`, `"low"`), `SortOption` (`"match-score"`, `"newest"`, `"oldest"`), and added `found_at?: string` to `JobListItem`.
+- `components/find-jobs/FilterBar.tsx`: Configured real-time text search with clear button (`X`), match score tier dropdown (All Matches, High Match `>= 70%`, Low Match `< 70%`), and sort dropdown (Match Score, Newest, Oldest).
+- `components/find-jobs/JobResultsTable.tsx`: Implemented dynamic sliding window pagination (20 items per page), dynamic result bounds label (`Showing X to Y of Z results`), clickable job links to `/find-jobs/[id]`, and an empty state with a "Reset filters" action.
+- `components/find-jobs/FindJobsClient.tsx`: Wired real-time filtering (role/company text search, match score partition at 70), sorting (match score descending with timestamp tie-breaker, newest descending, oldest ascending), and automatic page reset to page 1 on filter/search changes.
+- `app/find-jobs/page.tsx`: Added server-side data preloading from InsForge DB scoped to `user_id` for instant SSR hydration and zero layout shift.
+- `context/progress-tracker.md` & `context/context/progress-tracker.md`: Marked Feature 11 as completed. Phase 3 (Find Jobs Page) is now 100% complete.
 
 ## Decisions made
 
-- Automated Profile Synchronization: Used a PostgreSQL trigger on `auth.users` (`on_auth_user_created`) to guarantee profile records are initialized upon OAuth sign-in.
-- Cascading Deletes: User account deletion cascades across `profiles`, `agent_runs`, `jobs`, and `agent_logs`, while `jobs.run_id` sets null to preserve manual URL-based job records.
-- Shared Internal Navigation: Built a standardized `Navbar` component handling user state and sign-out logic across all protected views.
+- **Match Score Threshold:** Partitioned High Match at `match_score >= 70` and Low Match at `match_score < 70` in accordance with `build-plan.md`.
+- **Page Size:** Locked pagination strictly to 20 jobs per page as specified.
+- **Server Preloading + Client Sync:** Server pre-fetches the user's jobs for instant first paint, while `FindJobsClient` maintains active client-side filtering/sorting and refreshes from InsForge DB when discovery completes.
+- **Timestamp Tracking:** Added `found_at` ISO timestamps to `JobListItem` so date sorting operates on true UTC millisecond timestamps while displaying human-friendly relative strings ("2 hours ago", "Yesterday", etc.).
 
 ## Problems solved
 
-- Diagnosed why clicking "Get Started" redirected directly to the dashboard: an active session cookie on `localhost:3000` was detected by server auth guards.
-- Resolved missing Sign Out button on Dashboard and internal views by building and integrating `Navbar.tsx`.
-- Resolved TypeScript typing compatibility for `profile: null | UserProfile` in navigation properties.
+- Replaced static pagination with a dynamic sliding pagination window helper (`getVisiblePages`) supporting arbitrary job counts.
+- Updated existing DB job match scores to verify both High Match (`>= 70`) and Low Match (`< 70`) partitions against real data.
+- Built and ran automated test suite `scratch/test-feature-11.ts` validating all 5 feature criteria (All Matches, High Match, Low Match, text search, all 3 sort modes, and multi-page slices) with exit code 0.
+- Verified zero TypeScript compilation errors (`npx tsc --noEmit`).
 
 ## Current state
 
-- Phase 1 (Foundation: Features 01–04) is 100% complete and fully verified.
-- InsForge CLI and agent skills are linked and operational.
-- Database tables, triggers, RLS policies, and storage buckets are active.
+- Phase 3 (Find Jobs Page: Features 09, 10, 11) is 100% complete and fully verified.
+- Finding jobs via Adzuna API, scoring with LLM fallbacks, saving to DB, filtering, sorting, and paginating are all working end-to-end.
 
 ## Next session starts with
 
-- Phase 2: Profile Page (Feature 05 — Profile Page Full UI with completion ring, resume management card, personal/professional/work experience/education form sections).
+- **Phase 4: Feature 12 — Job Details Page — Full UI**: Build the complete Job Details page at `app/find-jobs/[id]/page.tsx` displaying header (company logo, title, match score badge, external job link), info cards (salary, location, type, date found), AI match reasoning paragraph, required skills vs user profile comparison (green matched / red missing badges), Adzuna job description, company research card empty state, and "Apply Now" button.
 
 ## Open questions
 
-- None. Phase 1 foundation is complete and ready for Phase 2 UI implementation.
+- None. Ready for Phase 4 (Feature 12).

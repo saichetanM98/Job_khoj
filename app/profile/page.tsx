@@ -1,11 +1,12 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createInsforgeServer } from "@/lib/insforge-server";
 import { Navbar } from "@/components/Navbar";
+import { ProfileClient } from "@/components/profile/ProfileClient";
+import { UserProfile } from "@/types";
 
 export const metadata = {
-  title: "Profile | JobPilot",
-  description: "Your JobPilot profile.",
+  title: "Profile | JobKhoj",
+  description: "Manage your profile, resume, and job preferences.",
 };
 
 export default async function ProfilePage() {
@@ -17,26 +18,32 @@ export default async function ProfilePage() {
     redirect("/login");
   }
 
+  let profile: UserProfile | null = null;
+  try {
+    const { data: profileRecord, error: profileError } = await insforge.database
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      console.error("Error fetching profile from database:", profileError);
+    } else if (profileRecord) {
+      profile = profileRecord as UserProfile;
+    }
+  } catch (err) {
+    console.error("Error fetching profile from database:", err);
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar user={user} activePath="/profile" />
-      <main className="flex-1 px-6 py-12">
-        <section className="mx-auto max-w-3xl rounded-lg border border-border bg-surface p-8 shadow-sm">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-            Phase 1
-          </p>
-          <h1 className="mt-3 text-3xl font-bold text-text-black">Profile</h1>
-          <p className="mt-3 text-text-secondary">
-            Profile setup is intentionally paused until the next build phase.
-          </p>
-          <div className="mt-6">
-            <Link className="secondary-landing-button" href="/dashboard">
-              Back to Dashboard
-            </Link>
-          </div>
-        </section>
+      <main className="flex-1 px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <ProfileClient
+          initialProfile={profile}
+          userEmail={user.email || ""}
+        />
       </main>
     </div>
   );
 }
-

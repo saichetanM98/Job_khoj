@@ -42,10 +42,10 @@ function LoginForm() {
   return (
     <div className="w-full max-w-[440px] rounded-xl border border-border bg-surface p-8 shadow-lg md:p-10">
       <div className="flex flex-col items-center text-center">
-        <Link href="/" aria-label="JobPilot homepage" className="mb-8">
+        <Link href="/" aria-label="JobKhoj homepage" className="mb-8">
           <Image
-            src="/logo.png"
-            alt="JobPilot"
+            src="/jobkhoj-logo.png"
+            alt="JobKhoj"
             width={160}
             height={40}
             className="h-9 w-auto"
@@ -53,7 +53,7 @@ function LoginForm() {
           />
         </Link>
         <h1 className="text-2xl font-bold tracking-tight text-text-black">
-          Welcome to JobPilot
+          Welcome to JobKhoj
         </h1>
         <p className="mt-2 text-[15px] text-text-secondary">
           Sign in to start matching and applying with AI

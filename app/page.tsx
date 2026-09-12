@@ -13,7 +13,7 @@ const features = [
   {
     title: "Know the Company Before You Apply",
     description:
-      "Stop guessing what a company is about. JobPilot browses their site and gives you everything you need to apply with confidence.",
+      "Stop guessing what a company is about. JobKhoj browses their site and gives you everything you need to apply with confidence.",
     active: false,
   },
   {
@@ -33,7 +33,7 @@ const confidenceFeatures = [
   {
     title: "AI-Powered Job Matching",
     description:
-      "Stop guessing which jobs are worth applying to. JobPilot scores every role against your actual skills so you focus on the ones that matter.",
+      "Stop guessing which jobs are worth applying to. JobKhoj scores every role against your actual skills so you focus on the ones that matter.",
   },
   {
     title: "Focus on the right roles",
@@ -52,10 +52,10 @@ export default async function Home() {
       {/* Header */}
       <header className="border-b border-border bg-surface">
         <div className="mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 sm:px-10 lg:px-16">
-          <Link href="/" aria-label="JobPilot homepage" className="flex items-center">
+          <Link href="/" aria-label="JobKhoj homepage" className="flex items-center">
             <Image
-              src="/logo.png"
-              alt="JobPilot"
+              src="/jobkhoj-logo.png"
+              alt="JobKhoj"
               width={160}
               height={40}
               className="h-8 sm:h-9 w-auto"
@@ -119,7 +119,7 @@ export default async function Home() {
             Your tools shouldn’t be.
           </h1>
           <p className="mx-auto mt-6 max-w-[660px] text-lg sm:text-xl lg:text-[20px] font-normal leading-relaxed text-text-slate-medium">
-            Stop applying blind. JobPilot finds the jobs, researches the companies, and gives you
+            Stop applying blind. JobKhoj finds the jobs, researches the companies, and gives you
             everything you need to stand out.
           </p>
 
@@ -136,7 +136,7 @@ export default async function Home() {
           <div className="mt-12 sm:mt-16 mx-auto max-w-[1120px]">
             <Image
               src="/images/dashboard-demo.png"
-              alt="JobPilot dashboard preview"
+              alt="JobKhoj dashboard preview"
               width={2394}
               height={1208}
               className="h-auto w-full drop-shadow-sm"
@@ -189,7 +189,7 @@ export default async function Home() {
           <div className="flex items-center justify-center bg-surface-muted p-8 sm:p-12 lg:p-14 lg:border-r border-border order-2 lg:order-1">
             <Image
               src="/images/agnet-log.png"
-              alt="JobPilot agent log preview"
+              alt="JobKhoj agent log preview"
               width={1072}
               height={828}
               className="h-auto w-full max-w-[560px]"
@@ -272,10 +272,10 @@ export default async function Home() {
 
         {/* Footer */}
         <footer className="flex flex-col items-center justify-between gap-6 border-t border-border bg-surface px-6 py-10 sm:px-10 lg:flex-row lg:px-16">
-          <Link href="/" aria-label="JobPilot homepage">
+          <Link href="/" aria-label="JobKhoj homepage">
             <Image
-              src="/logo.png"
-              alt="JobPilot"
+              src="/jobkhoj-logo.png"
+              alt="JobKhoj"
               width={150}
               height={38}
               className="h-8 w-auto"

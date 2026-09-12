@@ -105,5 +105,28 @@ Last updated: August 29, 2026
 - **Tags & Badges**: All tags use `rounded-full` pill shape with `text-xs px-2.5 py-1 font-medium`.
 - **Top Navbar**: Sticky header with `h-16 border-b border-border bg-surface`, max-width `1440px`, color-only active state (`text-accent font-medium`, no underline).
 
+### ResumeSection
+
+File: `components/profile/ResumeSection.tsx`  
+Last updated: September 7, 2026
+
+| Property         | Class |
+| ---------------- | ----- |
+| Background       | `bg-surface` (card), `bg-surface` / `bg-accent-muted/30` (dropzone idle/drag), `bg-accent` (primary generate button), `bg-accent-muted` (extract button) |
+| Border           | `border border-border` (card), `border-2 border-dashed border-[#e2e8f0]` (dropzone), `border border-accent/40` (extract button) |
+| Border radius    | `rounded-2xl` (card), `rounded-xl` (dropzone, generate button, view button), `rounded-lg` (select button, extract button, download button) |
+| Text — primary   | `text-text-primary` (`text-lg font-bold`, `text-sm font-semibold`) |
+| Text — secondary | `text-text-secondary` (`text-sm`, `text-xs`) |
+| Spacing          | `p-6 sm:p-7` (card), `p-8 sm:p-10` (dropzone), `space-y-6` |
+| Hover state      | Dropzone: `hover:border-accent/60 hover:bg-surface-secondary/50`; Buttons: `hover:bg-accent-dark`, `hover:bg-surface-secondary`, `hover:bg-accent-light` |
+| Shadow           | `shadow-sm`, `shadow-2xs` |
+| Accent usage     | `text-accent`, `bg-accent-light/50` (icon circle), `bg-accent` (primary CTA button), `hover:bg-accent-dark` |
+
+**Pattern notes:**
+- Upload dropzone supports drag-and-drop with active feedback state (`border-accent bg-accent-muted/30`).
+- When a resume exists (`hasResume === true`), secondary actions appear directly in the dropzone: "Extract Profile from Resume" (accent-tinted button) and "Download Resume" (authorized `/api/resume/download` link).
+- Bottom helper bar provides "View Current Resume" (`/api/resume/preview` inline streaming) and "Generate Resume from Profile" (AI-polish trigger with loading spinner).
+
+
 
 

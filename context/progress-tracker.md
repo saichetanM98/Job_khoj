@@ -5,10 +5,10 @@
 | Metric | Status |
 | --- | --- |
 | Total Features | 17 |
-| Completed | 4 |
+| Completed | 11 |
 | In Progress | 0 |
-| Remaining | 13 |
-| Current Phase | Phase 2 — Profile Page |
+| Remaining | 6 |
+| Current Phase | Phase 4 — Job Details Page |
 
 ---
 
@@ -23,24 +23,24 @@
 
 ---
 
-## Phase 2 — Profile Page
+## Phase 2 — Profile Page (Completed)
 
 | # | Feature | Status | Notes |
 | --- | --- | --- | --- |
-| 05 | **Profile Page — Full UI** | ⏳ Pending | Profile completion ring, Resume upload/generate UI, Personal/Professional/Experience/Education/Preferences form sections with mock data |
-| 06 | **Profile Save Logic** | ⏳ Pending | InsForge DB integration via Server Action, PDF upload to storage, completion percentage calculation |
-| 07 | **AI Profile Extraction from Resume** | ⏳ Pending | PDF parsing with `pdf-parse`, GPT-4o structured extraction, form auto-fill |
-| 08 | **Resume PDF Generation from Profile** | ⏳ Pending | GPT-4o polished content generation, `@react-pdf/renderer` single-page PDF rendering & storage |
+| 05 | **Profile Page — Full UI** | ✅ Completed | Profile completion ring, Resume upload/generate card, Personal/Professional/Experience/Education/Preferences sections matching design tokens |
+| 06 | **Profile Save Logic** | ✅ Completed | InsForge DB upsert with explicit conflict keys, real PDF upload to InsForge Storage (`resumes` bucket), dynamic completion dual states, and real-time state sync |
+| 07 | **AI Profile Extraction from Resume** | ✅ Completed | PDF parsing with `pdf-parse`, multi-provider AI structured JSON extraction (Groq / Gemini / OpenRouter / OpenAI) with automatic fallback and interactive form auto-fill |
+| 08 | **Resume PDF Generation from Profile** | ✅ Completed | Multi-provider AI polish (Gemini/Groq/OpenRouter/OpenAI), 15s/35s timeout bounds, unpolished fallback, `@react-pdf/renderer` single-page PDF rendering, InsForge Storage upload |
 
 ---
 
-## Phase 3 — Find Jobs Page
+## Phase 3 — Find Jobs Page (Completed)
 
 | # | Feature | Status | Notes |
 | --- | --- | --- | --- |
-| 09 | **Find Jobs Page — Full UI** | ⏳ Pending | Search controls, job results table, match scores, filters bar, pagination |
-| 10 | **Adzuna Job Discovery** | ⏳ Pending | Adzuna API integration, GPT-4o match scoring against profile, DB writes, agent run logs, PostHog events |
-| 11 | **Filter + Sort + Pagination** | ⏳ Pending | Real DB filtering (high/low match, search keyword, date/score sort, 20 items per page) |
+| 09 | **Find Jobs Page — Full UI** | ✅ Completed | Pixel-perfect UI matching find-jobs.png: SearchControlsCard with status alert, FilterBar, JobResultsTable with color-coded score progress bars, pagination |
+| 10 | **Adzuna Job Discovery** | ✅ Completed | Adzuna API integration, 3-tier scoring fallback (Groq->Gemini->Heuristic), dedup, agent_runs/agent_logs, PostHog events |
+| 11 | **Filter + Sort + Pagination** | ✅ Completed | Real DB filtering (High Match >= 70, Low Match < 70, All Matches), text search (role/company), date/score sorting, dynamic 20 items/page pagination |
 
 ---
 
