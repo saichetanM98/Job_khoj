@@ -5,10 +5,10 @@
 | Metric | Status |
 | --- | --- |
 | Total Features | 17 |
-| Completed | 11 |
+| Completed | 15 |
 | In Progress | 0 |
-| Remaining | 6 |
-| Current Phase | Phase 4 — Job Details Page |
+| Remaining | 2 |
+| Current Phase | Phase 5 — Dashboard |
 
 ---
 
@@ -44,12 +44,12 @@
 
 ---
 
-## Phase 4 — Job Details Page
+## Phase 4 — Job Details Page (Completed)
 
 | # | Feature | Status | Notes |
 | --- | --- | --- | --- |
-| 12 | **Job Details Page — Full UI** | ⏳ Pending | Header, info cards, AI match reasoning, required skills vs profile, description, apply button |
-| 13 | **Company Research Agent** | ⏳ Pending | Redirect resolving, Browserbase + Stagehand browsing, GPT-4o synthesis, 9-field dossier card rendering |
+| 12 | **Job Details Page — Full UI** | ✅ Completed | Header, info cards, AI match reasoning, required skills vs profile, description, company research empty state, apply button |
+| 13 | **Company Research Agent** | ✅ Completed | Redirect resolving, Browserbase + Stagehand v4 browsing with 25s timeout, multi-provider LLM briefing synthesis, 9-field dossier card rendering, PostHog telemetry & demo caching |
 
 ---
 
@@ -57,7 +57,7 @@
 
 | # | Feature | Status | Notes |
 | --- | --- | --- | --- |
-| 14 | **Dashboard Page — Full UI** | ⏳ Pending | 4 stat cards, recent activity timeline, 3 charts with mock data |
-| 15 | **Stats Bar — Real Data** | ⏳ Pending | Real DB aggregates (Total Jobs, Avg Match, Researched, Jobs This Week) |
-| 16 | **Recent Activity — Real Data** | ⏳ Pending | Merged agent runs & research activity feed with timestamps |
-| 17 | **Analytics Charts — PostHog Data** | ⏳ Pending | Real PostHog event aggregation for Jobs Over Time, Match Distribution, Research Activity via Recharts |
+| 14 | **Dashboard Page — Full UI** | ✅ Completed | 4 stat cards, recent activity timeline, 3 charts with mock data matching dashboard.png |
+| 15 | **Stats Bar — Real Data** | ✅ Completed | Real DB aggregates (Total Jobs, Avg Match, Researched, Jobs This Week) scoped to current user, week-over-week trends, clean zero-state handling |
+| 16 | **Recent Activity — Real Data** | ✅ Completed | Real DB activity feed merging agent runs & company research in descending order, color-coded status dots, relative time format, zero-state fallback |
+| 17 | **Analytics Charts — PostHog Data** | ✅ Completed | Real DB aggregation for Jobs Over Time (30d UTC zero-filled), Match Distribution (5 buckets, sub-50% filtered), Research Activity (7d UTC using company_researched_at), independent empty states, optional PostHog adapter |

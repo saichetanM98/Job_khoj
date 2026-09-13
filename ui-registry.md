@@ -99,3 +99,74 @@ Last updated: September 3, 2026
 - Header is `sticky top-0 z-40` with max-width `max-w-[1440px]`.
 - Navigation items use 16px Lucide icons alongside 14px labels. Active route uses `text-accent`.
 - User authentication button uses high-contrast `bg-overlay-dark` (#131316) with white text.
+
+---
+
+### JobDetailsView
+
+File: `components/job-details/JobDetailsView.tsx`  
+Last updated: September 12, 2026
+
+| Property         | Class |
+| ---------------- | ----- |
+| Background       | `bg-surface` (cards), `bg-surface-secondary` (company logo box, empty state icon box), `bg-emerald-50` (salary box, match badge, matched skill pills), `bg-blue-50` (location box), `bg-purple-50` (job type box, company research icon box), `bg-slate-50` (date found box), `bg-[#f5f3ff]` (gap skills pill), `bg-accent` (primary apply & research buttons) |
+| Border           | `border border-border` (cards, logo boxes, external button), `border border-emerald-200` (match badge & matched pills), `border border-purple-200/80` (gap skills pill) |
+| Border radius    | `rounded-2xl` (all main section cards), `rounded-xl` (logo boxes, info cards, buttons), `rounded-full` (match badge, skill pills) |
+| Text — primary   | `text-text-primary` (headings, info values, description text) |
+| Text — secondary | `text-text-secondary` (company name, section labels, back link), `text-text-muted` (uppercase metric labels) |
+| Spacing          | `p-6` (large cards), `p-4` (info cards), `space-y-6` (vertical card rhythm), `max-w-5xl` (container width) |
+| Hover state      | Buttons: `hover:bg-accent-dark`, `hover:bg-surface-secondary`; Link: `group-hover:-translate-x-0.5` |
+| Shadow           | `shadow-sm` (all section cards and primary buttons), `shadow-2xs` (outline buttons) |
+| Accent usage     | `bg-accent` (apply CTA button, research button), `text-accent` (icons, gap skills cross), `hover:bg-accent-dark` |
+
+**Pattern notes:**
+- Exact match to `job-details.png` layout hierarchy.
+- Badge distinction: Emerald green (`✓`) for profile matches, Lavender/Violet (`✕`) for gap skills.
+- Info cards display 4-column metric strip with color-coded square icon containers.
+- Expandable job description: Smooth gradient fade when collapsed (>280 chars), interactive "Show more" / "Show less" toggle, and upstream feed truncation fallback link.
+- Company research card provides empty state, multi-stage loading indicator (resolving domain -> browsing pages -> synthesizing briefing), and full 9-field structured dossier view with candidate edge and gap strategy highlights.
+
+---
+
+### CompanyResearchCard (Feature 13)
+
+File: `components/job-details/CompanyResearchCard.tsx`  
+Last updated: September 13, 2026
+
+| Property         | Class |
+| ---------------- | ----- |
+| Background       | `bg-surface` (card), `bg-surface-secondary/50` (overview, why role, tech stack, culture, questions, prep), `bg-emerald-50/70` (Your Edge card), `bg-purple-50/70` (Gaps to Address strategy card), `bg-purple-50` (icon box), `bg-accent` (primary CTA), `bg-red-50` (error banner) |
+| Border           | `border border-border/70` (dossier sections), `border border-emerald-200/80` (Your Edge), `border border-purple-200/80` (Gaps to Address), `border border-border` (main card, tech pills, re-run button) |
+| Border radius    | `rounded-2xl` (card), `rounded-xl` (section boxes, icon box, CTA buttons), `rounded-lg` (tech stack pills, retry button), `rounded-full` (progress indicators, bullet dots) |
+| Text — primary   | `text-text-primary` (overview, why role, headings) |
+| Text — secondary | `text-text-secondary` (subtitles, questions, culture bullets), `text-text-muted` (uppercase section tags, sources label) |
+| Accent usage     | `bg-accent`, `text-accent`, `hover:bg-accent-dark` |
+| Edge highlight   | `text-emerald-800`, `text-emerald-950`, `text-emerald-600` for candidate unique edge |
+| Gap strategy     | `text-purple-900`, `text-purple-950`, `bg-accent` bullet for strategic reframing |
+
+---
+
+### Dashboard (Feature 14)
+
+File: `components/dashboard/DashboardClient.tsx` (and subcomponents `StatCards.tsx`, `RecentActivityCard.tsx`, `CompanyResearchChart.tsx`, `JobsOverTimeChart.tsx`, `MatchDistributionChart.tsx`, `DashboardBanner.tsx`)  
+Last updated: September 13, 2026
+
+| Property         | Class |
+| ---------------- | ----- |
+| Background       | `bg-surface` (cards), `bg-background` (page canvas) |
+| Border           | `border border-border` (cards), `border-b-2 border-accent` (Navbar active tab), `#E2E8F0` (timeline connector line) |
+| Border radius    | `rounded-2xl` (stat cards, timeline card, chart cards), `rounded-full` (badges, timeline dots), `radius={[6, 6, 0, 0]}` (Recharts bars) |
+| Text — primary   | `text-slate-900` (`text-3xl font-bold` for stat numbers, `text-base sm:text-lg font-bold` for card headings) |
+| Text — secondary | `text-slate-500` (stat titles), `text-slate-400` (sublabels, timestamps, chart axes) |
+| Spacing          | `p-6` (stat cards), `p-6 sm:p-8` (activity & chart cards), `space-y-6` (vertical sections, timeline items), `gap-6` (grid items) |
+| Hover state      | Stat cards: `hover:shadow-md`; Navbar links: `hover:text-text-black` |
+| Shadow           | `shadow-sm` (all cards), `shadow-xs` (banner) |
+| Accent usage     | `border-accent text-accent font-semibold` (active nav indicator), `#7C3AED` (Jobs Over Time line & gradient), `#5096FF` (Company Research bars), `#10B981` (Match Distribution bars) |
+
+**Pattern notes:**
+- Layout mirrors `dashboard.png`: 4 stat cards in top row, 2-column equal split for middle row, 12-column grid (7 cols / 5 cols) for bottom row.
+- Recharts stability pattern: Charts in CSS Grid/Flex containers must use explicit numeric height on both the wrapper `style={{ height: 260, minHeight: 260 }}` and `<ResponsiveContainer height={260} minHeight={260}>`, paired with `min-w-0` on parent grid columns to prevent `ResizeObserver` 0-dimension collapse.
+- React 19 SVG animation: Recharts bars and area curves include `isAnimationActive={false}` to guarantee immediate SVG geometry rendering during hydration.
+- Activity timeline: Status dots use `block h-2.5 w-2.5 rounded-full` with 4px pastel ring box-shadows (`#EDE9FE` for purple, `#DBEAFE` for blue, `#D1FAE5` for emerald) connected by a 2px `#E2E8F0` vertical line.
+- Profile completeness banner: Renders above stat cards when profile is incomplete with `bg-gradient-to-r from-amber-50/80 via-orange-50/40 to-amber-50/60`, missing field badges, and a direct CTA to `/profile`.
+

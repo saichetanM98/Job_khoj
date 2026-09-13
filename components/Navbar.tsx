@@ -35,12 +35,12 @@ export function Navbar({ user, activePath }: NavbarProps) {
           />
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden items-center gap-8 md:flex">
+        <nav aria-label="Primary navigation" className="hidden items-center gap-8 md:flex h-16">
           <Link
-            className={`flex items-center gap-2 text-[14px] font-medium transition-colors ${
+            className={`flex items-center gap-2 text-[14px] font-medium h-16 border-b-2 transition-colors ${
               activePath === "/dashboard"
-                ? "text-accent font-medium"
-                : "text-text-dark hover:text-text-black"
+                ? "border-accent text-accent font-semibold"
+                : "border-transparent text-text-dark hover:text-text-black"
             }`}
             href="/dashboard"
           >
@@ -48,10 +48,10 @@ export function Navbar({ user, activePath }: NavbarProps) {
             Dashboard
           </Link>
           <Link
-            className={`flex items-center gap-2 text-[14px] font-medium transition-colors ${
+            className={`flex items-center gap-2 text-[14px] font-medium h-16 border-b-2 transition-colors ${
               activePath === "/find-jobs"
-                ? "text-accent font-medium"
-                : "text-text-dark hover:text-text-black"
+                ? "border-accent text-accent font-semibold"
+                : "border-transparent text-text-dark hover:text-text-black"
             }`}
             href="/find-jobs"
           >
@@ -59,10 +59,10 @@ export function Navbar({ user, activePath }: NavbarProps) {
             Find Jobs
           </Link>
           <Link
-            className={`flex items-center gap-2 text-[14px] font-medium transition-colors ${
+            className={`flex items-center gap-2 text-[14px] font-medium h-16 border-b-2 transition-colors ${
               activePath === "/profile"
-                ? "text-accent font-medium"
-                : "text-text-dark hover:text-text-black"
+                ? "border-accent text-accent font-semibold"
+                : "border-transparent text-text-dark hover:text-text-black"
             }`}
             href="/profile"
           >

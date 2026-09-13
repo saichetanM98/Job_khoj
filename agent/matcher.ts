@@ -237,7 +237,7 @@ async function tryGeminiScoring(job: AdzunaJob, profile: UserProfile): Promise<S
 
   const completion = await withTimeout(
     client.chat.completions.create({
-      model: "gemini-3.6-flash",
+      model: "gemini-3.5-flash",
       messages: [
         { role: "system", content: "You are a professional recruiting assistant. Return only valid JSON adhering to the requested schema." },
         { role: "user", content: prompt },

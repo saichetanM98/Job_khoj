@@ -3,7 +3,7 @@ import OpenAI from "openai";
 /**
  * Universally resolves OpenAI-compatible clients for free/paid AI providers:
  * 1. Groq (Free, ultra-fast): GROQ_API_KEY -> https://api.groq.com/openai/v1 (openai/gpt-oss-120b)
- * 2. Google Gemini: GEMINI_API_KEY -> https://generativelanguage.googleapis.com/v1beta/openai/ (gemini-3.6-flash)
+ * 2. Google Gemini: GEMINI_API_KEY -> https://generativelanguage.googleapis.com/v1beta/openai/ (gemini-3.5-flash)
  * 3. OpenRouter: OPENROUTER_API_KEY -> https://openrouter.ai/api/v1 (meta-llama/llama-3.3-70b-instruct:free)
  * 4. OpenAI: OPENAI_API_KEY -> https://api.openai.com/v1 (gpt-4o)
  */
@@ -32,7 +32,7 @@ export function getOpenAIClient(): { client: OpenAI; model: string } {
         baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
         maxRetries: 0,
       }),
-      model: "gemini-3.6-flash",
+      model: "gemini-3.5-flash",
     };
   }
 
@@ -117,7 +117,7 @@ export function getAvailableAIProviders(timeoutMs = 15000): AIProviderConfig[] {
         timeout: timeoutMs,
         maxRetries: 0,
       }),
-      model: "gemini-3.6-flash",
+      model: "gemini-3.5-flash",
     });
   }
 
